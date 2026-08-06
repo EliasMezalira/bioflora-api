@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  app:
+    image: maven:3.10-jdk-17
+    working_dir: /workspace
+    volumes:
+      - ./:/workspace:cached
+      - m2-cache:/root/.m2
+    command: mvn -Dquarkus.http.host=0.0.0.0 -DskipTests quarkus:dev
+    ports:
+      - "8080:8080"
+    environment:
+      - QUARKUS_PROFILE=dev
+    depends_on:
+      - db
+    env_file: .env
+
+  db:
+    image: postgres:15
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: bioflora
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./MIGRATION.sql:/docker-entrypoint-initdb.d/migration.sql:ro
+
+  adminer:
+    image: adminer
+    restart: unless-stopped
+    ports:
+      - "8081:8080"
+    depends_on:
+      - db
+
+volumes:
+  db-data:
+  m2-cache:
