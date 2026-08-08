@@ -1,10 +1,13 @@
 package controller;
 
 import domain.dto.*;
+import io.quarkus.security.identity.SecurityIdentity;
 import jakarta.annotation.security.PermitAll;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+
+import org.eclipse.microprofile.jwt.JsonWebToken;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import services.UsuarioService;
@@ -17,6 +20,9 @@ public class UsuarioController {
     @Inject
     UsuarioService usuarioService;
 
+    @Inject
+    JsonWebToken jwt;
+
     @POST
     @PermitAll
     @Operation(summary = "Criar conta de usuário")
@@ -24,6 +30,16 @@ public class UsuarioController {
     @APIResponse(responseCode = "400", description = "Dados inválidos")
     public UsuarioResponse criarConta(UsuarioCreateRequest request) {
         return usuarioService.criarConta(request);
+    }
+
+    @GET
+    @Path("/me")
+    @Operation(summary = "Obter usuário logado")
+    @APIResponse(responseCode = "200", description = "Usuário encontrado")
+    @APIResponse(responseCode = "404", description = "Usuário não encontrado")
+    public UsuarioResponse obterPorJWT() {
+        Long id = Long.parseLong(jwt.getSubject());
+        return usuarioService.obterPorId(id);
     }
 
     @GET
