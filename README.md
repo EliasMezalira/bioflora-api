@@ -7,7 +7,7 @@ API Backend para levantamento de flora desenvolvida com Quarkus e PostgreSQL.
 - ✅ Autenticação JWT
 - ✅ CRUD completo para Usuários, Levantamentos e Indivíduos
 - ✅ Upload de imagens de plantas (BLOB no DB)
-- ✅ Integração com IA (Groq/LLaMA) para identificação de espécies
+- ✅ Integração com IA para identificação de espécies
 - ✅ Paginação em endpoints de listagem
 - ✅ Versionamento de banco de dados com Liquibase
 - ✅ Documentação automática com Swagger/OpenAPI
@@ -187,8 +187,7 @@ Consulte `MIGRATION.sql` para ver as estruturas de tabelas.
 
 ### Migração com Liquibase
 
-Consulte `LIQUIBASE_SETUP.md` para instruções detalhadas de configuração.
-
+O banco de dados do projeto utiliza liquibase. Portanto não tem necessidade de fazer uma configuração do schema para rodar o projeto. Ao iniciar a aplicação, todas as tabelas e indices serão criados autimaticamente.
 ## 🛠️ Desenvolvimento
 
 ### Rodar em modo dev com hot reload:
@@ -203,7 +202,5 @@ Consulte `LIQUIBASE_SETUP.md` para instruções detalhadas de configuração.
 
 ## 📞 Mais Informações
 
-- Consulte `LIQUIBASE_SETUP.md` para configurar o Liquibase
-- Consulte `MIGRATION.sql` para ver as estruturas SQL das tabelas
 - A documentação interativa do Swagger está em `/swagger-ui`
 - OpenAPI spec em `/openapi`
