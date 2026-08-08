@@ -1,12 +1,16 @@
 package domain.entity;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tb_usuario")
-public class Usuario extends PanacheEntity {
+public class Usuario extends PanacheEntityBase {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Long id;
+
     @Column(nullable = false, length = 100)
     public String nome;
 

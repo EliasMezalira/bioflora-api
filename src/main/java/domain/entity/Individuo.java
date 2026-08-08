@@ -1,6 +1,6 @@
 package domain.entity;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -8,7 +8,11 @@ import java.util.List;
 
 @Entity
 @Table(name = "tb_individuo")
-public class Individuo extends PanacheEntity {
+public class Individuo extends PanacheEntityBase {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Long id;
+
     @Column(nullable = false, length = 50)
     public String parcela;
 
