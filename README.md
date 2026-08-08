@@ -1,4 +1,4 @@
-# BioFlora API [![CI - Test](../../actions/workflows/build-and-deploy.yml/badge.svg)](../../actions/workflows/build-and-deploy.yml)
+# BioFlora API [![CD - API](../../actions/workflows/deploy.yml/badge.svg)](../../actions/workflows/deploy.yml)
 
 API Backend para levantamento de flora desenvolvida com Quarkus e PostgreSQL.
 
