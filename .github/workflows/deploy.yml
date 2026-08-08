@@ -1,0 +1,39 @@
+name: Build and Push Native Image
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar JDK 25 (Amazon Corretto)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'corretto'
+          java-version: '25'
+          cache: 'maven' # Habilita o cache do Maven para acelerar builds futuros
+
+      - name: Build do executável nativo
+        run: ./mvnw package -Pnative -Dquarkus.native.container-build=true -DskipTests
+
+      - name: Login no Docker Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.REGISTRY_URL }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - name: Build da imagem Docker
+        run: |
+          docker build -f src/main/docker/Dockerfile.native -t ${{ secrets.REGISTRY_URL }}/${{ secrets.REGISTRY_USERNAME }}/bioflora-api:1 .
+
+      - name: Push da imagem para o Registry
+        run: |
+          docker push ${{ secrets.REGISTRY_URL }}/${{ secrets.REGISTRY_USERNAME }}/bioflora-api:1

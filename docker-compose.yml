@@ -2,16 +2,22 @@ version: '3.8'
 
 services:
   app:
+    # Usamos a mesma imagem do Maven para fazer o build
     image: maven:3.9-amazoncorretto-25
     working_dir: /workspace
     volumes:
       - ./:/workspace:cached
       - m2-cache:/root/.m2
-    command: mvn -Dquarkus.http.host=0.0.0.0 -DskipTests quarkus:dev
+      # Mapeamos o socket do Docker para que o Quarkus possa criar o container de build nativo (Mandrel/GraalVM)
+      - /var/run/docker.sock:/var/run/docker.sock
+    # O comando faz o build nativo via container e depois executa o binário gerado
+    command: >
+      bash -c "./mvnw package -Pnative -Dquarkus.native.container-build=true -DskipTests 
+      && ./target/*-runner -Dquarkus.http.host=0.0.0.0"
     ports:
       - "8080:8080"
     environment:
-      - QUARKUS_PROFILE=dev
+      - QUARKUS_PROFILE=prod # Mudamos para prod, que é o padrão para builds nativos
     depends_on:
       - db
     env_file: .env
