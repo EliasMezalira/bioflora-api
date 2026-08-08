@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   app:
-    image: maven:3.10-jdk-17
+    image: maven:3.9-amazoncorretto-25
     working_dir: /workspace
     volumes:
       - ./:/workspace:cached
@@ -17,7 +17,7 @@ services:
     env_file: .env
 
   db:
-    image: postgres:15
+    image: postgres:16
     restart: unless-stopped
     environment:
       POSTGRES_DB: bioflora
