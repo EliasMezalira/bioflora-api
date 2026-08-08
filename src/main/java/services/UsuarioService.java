@@ -126,6 +126,7 @@ public class UsuarioService {
                     .subject(usuario.id.toString())
                     .claim("email", usuario.email)
                     .claim("nome", usuario.nome)
+                    .expiresIn(20 * 60)
                     .sign();
         } catch (RuntimeException e) {
             // fallback para ambiente de desenvolvimento/teste quando a chave de assinatura não está configurada
