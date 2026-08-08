@@ -1,7 +1,7 @@
 package controller;
 
+import domain.dto.ImagemDownloadResponse;
 import domain.dto.ImagemResponse;
-import domain.entity.Imagem;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -47,8 +47,8 @@ public class ImagemController {
     @APIResponse(responseCode = "200", description = "Imagem retornada")
     @APIResponse(responseCode = "404", description = "Imagem não encontrada")
     public Response download(@PathParam("id") Long id) {
-        Imagem imagem = imagemService.obterPorId(id);
-        
+        ImagemDownloadResponse imagem = imagemService.download(id);
+
         return Response.ok(imagem.conteudo)
                 .header("Content-Disposition", "inline; filename=\"" + imagem.nome + "\"")
                 .type(imagem.tipoMime)

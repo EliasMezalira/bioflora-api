@@ -1,5 +1,6 @@
 package services;
 
+import domain.dto.ImagemDownloadResponse;
 import domain.dto.ImagemResponse;
 import domain.entity.Imagem;
 import domain.entity.Individuo;
@@ -10,9 +11,6 @@ import jakarta.ws.rs.BadRequestException;
 import jakarta.ws.rs.NotFoundException;
 import org.jboss.logging.Logger;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,6 +54,16 @@ public class ImagemService {
     }
 
     @Transactional
+    public ImagemDownloadResponse download(Long id) {
+        Imagem imagem = imagemRepository.findById(id);
+        if (imagem == null) {
+            throw new NotFoundException("Imagem não encontrada");
+        }
+
+        return new ImagemDownloadResponse(imagem.conteudo, imagem.nome, imagem.tipoMime);
+    }
+
+    @Transactional
     public void deletar(Long id) {
         Imagem imagem = imagemRepository.findById(id);
         if (imagem == null) {
@@ -65,6 +73,7 @@ public class ImagemService {
         LOG.infof("Imagem deletada: %d", id);
     }
 
+    @Transactional
     public List<ImagemResponse> listarPorIndividuo(Long individuoId) {
         Individuo individuo = individuoRepository.findById(individuoId);
         if (individuo == null) {
