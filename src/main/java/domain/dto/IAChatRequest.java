@@ -2,9 +2,11 @@ package domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 
 import java.util.List;
 
+@RegisterForReflection
 public record IAChatRequest(
         String model,
         String reasoning_effort,
@@ -17,6 +19,7 @@ public record IAChatRequest(
     }
 
 
+    @RegisterForReflection
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public record ContentPart(
             String type, // "text" ou "image_url"
@@ -33,11 +36,11 @@ public record IAChatRequest(
             String url = "data:" + mimeType + ";base64," + base64;
             return new ContentPart("image_url", null, new ImageUrl(url));
         }
-
+        @RegisterForReflection
         public record ImageUrl(String url) {}
 
     }
-
+    @RegisterForReflection
     public record ResponseFormat(String type) {
         public static ResponseFormat jsonObject() {
             return new ResponseFormat("json_object");

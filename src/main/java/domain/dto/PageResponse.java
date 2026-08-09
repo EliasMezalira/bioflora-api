@@ -1,7 +1,9 @@
 package domain.dto;
 
-import java.util.List;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 
+import java.util.List;
+@RegisterForReflection
 public class PageResponse<T> {
     public List<T> content;
     public long totalElements;

@@ -1,7 +1,9 @@
 package domain.dto;
 
-import java.time.LocalDateTime;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 
+import java.time.LocalDateTime;
+@RegisterForReflection
 public class LevantamentoCreateRequest {
     public String nome;
     public String bioma;

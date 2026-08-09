@@ -1,6 +1,9 @@
 package domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
+@RegisterForReflection
 
 public class EspecieCompletaResponse {
     @JsonProperty("status_validacao")
@@ -52,6 +55,7 @@ public class EspecieCompletaResponse {
     public void setEcologia(EcologiaDTO ecologia) {
         this.ecologia = ecologia;
     }
+    @RegisterForReflection
 
     public static class EcologiaDTO {
 
@@ -92,6 +96,7 @@ public class EspecieCompletaResponse {
             this.importanciaEcologica = importanciaEcologica;
         }
     }
+    @RegisterForReflection
 
     public static class GeografiaDTO {
 
@@ -128,6 +133,7 @@ public class EspecieCompletaResponse {
             this.bioma = bioma;
         }
     }
+    @RegisterForReflection
 
     public static class TaxonDTO {
 
