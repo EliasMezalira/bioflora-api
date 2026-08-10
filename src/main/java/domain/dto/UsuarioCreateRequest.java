@@ -1,5 +1,8 @@
 package domain.dto;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
+@RegisterForReflection
 public class UsuarioCreateRequest {
     public String nome;
     public String email;
