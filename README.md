@@ -1,6 +1,10 @@
 # BioFlora API [![CD - API](../../actions/workflows/deploy.yml/badge.svg)](../../actions/workflows/deploy.yml)
 
-API Backend para levantamento de flora desenvolvida com Quarkus e PostgreSQL.
+API Backend para levantamento de flora desenvolvida com Quarkus e PostgreSQL. Desenvolvida por:
+Daniel Abrahão, Elias Mezalira, Joice Fernanda
+
+Está api tem como principal escopo gerenciar os dados de levantamentos de fauna, coletando informações dos individuos de um determinado ambiente.
+Para manter os dados sempre os mais reais possiveis, caso o usuário não saiba as caracteristicas de uma determinada espécie, é possivel consultar mais informações com uma IA.
 
 ## 📋 Características
 
@@ -34,19 +38,14 @@ quarkus.datasource.jdbc.url=jdbc:postgresql://localhost:5432/bioflora
 
 3. Configure as variáveis de ambiente:
 ```bash
-export OPENAI_API_KEY=sua_chave_groq
-export GROQ_MODEL=llama-3.3-70b-versatile
+export OPENAI_API_KEY=sua_chave
+export GROQ_MODEL=algum modelo que processe imagebs
 ```
 
 4. Crie o banco de dados PostgreSQL:
 ```sql
 CREATE DATABASE bioflora;
 ```
-
-5. **IMPORTANTE - Configurar Liquibase:**
-   - Crie a pasta: `src/main/resources/db/changelog/`
-   - Copie os arquivos XML do Liquibase (veja `LIQUIBASE_SETUP.md`)
-   - Alternativamente, execute as SQL em `MIGRATION.sql` manualmente
 
 6. Build do projeto:
 ```bash
@@ -199,8 +198,3 @@ O banco de dados do projeto utiliza liquibase. Portanto não tem necessidade de 
 ```bash
 ./mvnw package -Dnative
 ```
-
-## 📞 Mais Informações
-
-- A documentação interativa do Swagger está em `/swagger-ui`
-- OpenAPI spec em `/openapi`
