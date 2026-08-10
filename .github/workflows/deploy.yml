@@ -13,11 +13,11 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v4
 
-      - name: Configurar JDK 25 (Amazon Corretto)
+      - name: Configurar JDK 25 (graalvm)
         uses: actions/setup-java@v4
         with:
-          distribution: 'corretto'
-          java-version: '25'
+          distribution: 'graalvm'
+          java-version: '21'
           cache: 'maven' # Habilita o cache do Maven para acelerar builds futuros
 
       - name: Build do executável nativo
