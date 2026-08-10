@@ -6,6 +6,10 @@ public class EspecieCompletaResponse {
     @JsonProperty("status_validacao")
     private String statusValidacao;
 
+    private String nomeCientifico;
+    private String nomePopular;
+    private String descricao;
+
     private TaxonDTO taxon;
     private GeografiaDTO geografia;
     private EcologiaDTO ecologia;
@@ -27,6 +31,30 @@ public class EspecieCompletaResponse {
 
     public void setStatusValidacao(String statusValidacao) {
         this.statusValidacao = statusValidacao;
+    }
+
+    public String getNomeCientifico() {
+        return nomeCientifico;
+    }
+
+    public void setNomeCientifico(String nomeCientifico) {
+        this.nomeCientifico = nomeCientifico;
+    }
+
+    public String getNomePopular() {
+        return nomePopular;
+    }
+
+    public void setNomePopular(String nomePopular) {
+        this.nomePopular = nomePopular;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public TaxonDTO getTaxon() {
