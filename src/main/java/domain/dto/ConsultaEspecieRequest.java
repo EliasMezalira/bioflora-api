@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ConsultaEspecieRequest {
     @RestForm
-    public String nomePopular;
+    public String nomePopular; // Alterado de private para public para permitir o acesso direto nos serviços
 
     @RestForm
     public String localizacaoCidade;
@@ -25,7 +25,26 @@ public class ConsultaEspecieRequest {
     @RestForm
     public String bioma;
 
+    @RestForm
+    public String imagemBase64; // Alterado para public por consistência
+
     @RestForm("imagensAnexo")
     @Schema(type = SchemaType.ARRAY, implementation = String.class, format = "binary")
     public List<FileUpload> imagensAnexo;
+
+    public String getNomePopular() {
+        return nomePopular;
+    }
+
+    public void setNomePopular(String nomePopular) {
+        this.nomePopular = nomePopular;
+    }
+
+    public String getImagemBase64() {
+        return imagemBase64;
+    }
+
+    public void setImagemBase64(String imagemBase64) {
+        this.imagemBase64 = imagemBase64;
+    }
 }
